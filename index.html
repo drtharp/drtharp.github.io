@@ -1,48 +1,246 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #333;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #2c7be5;
-        }
-        button {
-            background: #2c7be5;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #1a5fcc;
-        }
-    </style>
-</head>
-<body>
-    <h1>It works 🎉</h1>
-    <p>If you can see this, your GitHub Pages site is live.</p>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbon Fee and Dividend</title>
 
-```
-<button onclick="sayHello()">Click me</button>
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  line-height: 1.6;
+  color: #222;
+  background: #f7f9fb;
+}
+
+header {
+  background: #ffffff;
+  padding: 50px 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  margin-top: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.flex {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.text {
+  flex: 1;
+  min-width: 250px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #0a7;
+}
+
+.calculator input, .calculator select {
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+button {
+  padding: 10px 16px;
+  margin-top: 10px;
+  border: none;
+  background: #0a7;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #086;
+}
+
+.result {
+  margin-top: 15px;
+  font-size: 1.2em;
+}
+
+@media (max-width: 700px) {
+  .flex {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Cut Carbon. Pay People.</h1>
+  <p>A simple policy: make pollution cost something—and return the money to you.</p>
+  <img src="images/carbon_dividend_image_1.png" style="width:100%; max-width:700px; margin-top:20px; border-radius:10px;">
+</header>
+
+<div class="container">
+
+<div class="card">
+  <div class="flex">
+    <img src="images/carbon_dividend_image_6.png">
+    <div class="text">
+      <h2>How it works</h2>
+      <p>
+        Fossil fuel companies pay a fee based on the carbon dioxide their fuels will emit.
+        The money is returned equally to Americans as a monthly dividend.
+      </p>
+      <ul>
+        <li>Pollution is no longer free</li>
+        <li>Clean energy becomes more competitive</li>
+        <li>You receive a direct payment</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="flex">
+    <img src="images/carbon_dividend_image_5.png">
+    <div class="text">
+      <h2>What it means for you</h2>
+      <p><span class="highlight">Most households come out ahead.</span></p>
+      <ul>
+        <li>Lower-emitting households receive more than they pay</li>
+        <li>Higher emitters pay more</li>
+        <li>Lower-income households benefit most</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="flex">
+    <img src="images/carbon_dividend_image_2.png">
+    <div class="text">
+      <h2>Estimate your impact</h2>
+
+      <div class="calculator">
+        <label>Household size:</label>
+        <input type="number" id="people" value="2" min="1">
+
+	<br>
+
+        <label>Household income ($ per year):</label>
+        <input type="number" id="income" value="70000" min="0">
+
+	<br>
+
+        <label>Carbon fee ($ per ton CO₂):</label>
+        <select id="fee">
+          <option value="50">$50</option>
+          <option value="100" selected>$100</option>
+          <option value="250">$250</option>
+        </select>
+
+        <button onclick="calculate()">Estimate</button>
+
+        <div class="result" id="result"></div>
+      </div>
+
+      <p style="margin-top:10px; font-size:0.9em; color:#555;">
+        *Simplified estimate based on typical U.S. consumption patterns.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="flex">
+    <img src="images/carbon_dividend_image_3.png">
+    <div class="text">
+      <h2>Why now</h2>
+      <p>
+        Climate-related costs are rising, and businesses need predictable signals.
+        A carbon fee provides a clear, consistent incentive to reduce emissions.
+      </p>
+    </div>
+  </div>
+</div>
+
+</div>
 
 <script>
-    function sayHello() {
-        alert("Hello! Your JavaScript is working too.");
-    }
+function calculate() {
+  const people = parseInt(document.getElementById("people").value);
+  const income = parseFloat(document.getElementById("income").value);
+  const fee = parseFloat(document.getElementById("fee").value);
+
+  if (isNaN(people) || people <= 0 || isNaN(income) || income < 0) {
+    document.getElementById("result").innerHTML = "Please enter valid values.";
+    return;
+  }
+
+  // --- BASELINE (at $100/ton) ---
+  const baselineDividendAnnualPerPerson = 800;
+  const baselineCostAnnualPerPerson = 600;
+  const baselineIncome = 70000;
+
+  // Scale with carbon fee
+  const feeScale = fee / 100;
+
+  // Dividend
+  const annualDividendPerPerson = baselineDividendAnnualPerPerson * feeScale;
+  const monthlyDividend = (annualDividendPerPerson / 12) * people;
+
+  // Cost scales with income (sublinear)
+  const incomeFactor = Math.pow(income / baselineIncome, 0.6);
+  const annualCostPerPerson = baselineCostAnnualPerPerson * incomeFactor * feeScale;
+  const monthlyCost = (annualCostPerPerson / 12) * people;
+
+  const net = monthlyDividend - monthlyCost;
+
+  const fmt = (x) => Math.round(x).toLocaleString();
+
+  let message = `
+    You would be paid <strong>$${fmt(monthlyDividend)}</strong> per month.<br>
+    Your fuel and goods are likely to cost about <strong>$${fmt(monthlyCost)}</strong> more per month.<br><br>
+  `;
+
+  if (net > 0) {
+    message += `<strong>You come out ahead by about $${fmt(net)} per month.</strong>`;
+  } else {
+    message += `<strong>You may pay about $${fmt(Math.abs(net))} more per month.</strong>`;
+  }
+
+  document.getElementById("result").innerHTML = message;
+}
 </script>
-```
 
 </body>
 </html>
