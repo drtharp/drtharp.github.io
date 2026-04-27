@@ -58,25 +58,21 @@ h1 {
   min-width: 250px;
 }
 
-ul {
-  padding-left: 20px;
+.calculator label {
+  display: block;
+  margin-top: 10px;
 }
 
-.highlight {
-  font-weight: bold;
-  color: #0a7;
-}
-
-.calculator input, .calculator select {
+.calculator select {
   padding: 8px;
-  margin: 5px 0;
+  margin-top: 5px;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
 }
 
 button {
   padding: 10px 16px;
-  margin-top: 10px;
+  margin-top: 15px;
   border: none;
   background: #0a7;
   color: white;
@@ -106,25 +102,16 @@ button:hover {
 <header>
   <h1>Cut Carbon. Pay People.</h1>
   <p>A simple policy: make pollution cost something—and return the money to you.</p>
-  <img src="images/carbon_dividend_image_1.png" style="width:100%; max-width:700px; margin-top:20px; border-radius:10px;">
 </header>
 
 <div class="container">
 
 <div class="card">
   <div class="flex">
-    <img src="images/carbon_dividend_image_6.png">
+    <img src="images/carbon_dividend_image_1.png">
     <div class="text">
       <h2>How it works</h2>
-      <p>
-        Fossil fuel companies pay a fee based on the carbon dioxide their fuels will emit.
-        The money is returned equally to Americans as a monthly dividend.
-      </p>
-      <ul>
-        <li>Pollution is no longer free</li>
-        <li>Clean energy becomes more competitive</li>
-        <li>You receive a direct payment</li>
-      </ul>
+      <p>Fossil fuel companies pay a fee based on emissions, and the money is returned equally to households.</p>
     </div>
   </div>
 </div>
@@ -134,12 +121,7 @@ button:hover {
     <img src="images/carbon_dividend_image_5.png">
     <div class="text">
       <h2>What it means for you</h2>
-      <p><span class="highlight">Most households come out ahead.</span></p>
-      <ul>
-        <li>Lower-emitting households receive more than they pay</li>
-        <li>Higher emitters pay more</li>
-        <li>Lower-income households benefit most</li>
-      </ul>
+      <p>Your dividend (your share of the fees paid by polluters) will be given back to you.  Some goods and services will increase in price, but most families will come out ahead. </p>
     </div>
   </div>
 </div>
@@ -151,17 +133,33 @@ button:hover {
       <h2>Estimate your impact</h2>
 
       <div class="calculator">
+
         <label>Household size:</label>
-        <input type="number" id="people" value="2" min="1">
+        <select id="people">
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
 
-	<br>
+        <label>Household income:</label>
+        <select id="income">
+          <option value="25000">$25,000</option>
+          <option value="50000">$50,000</option>
+          <option value="75000" selected>$75,000</option>
+          <option value="100000">$100,000</option>
+          <option value="150000">$150,000</option>
+          <option value="200000">$200,000</option>
+          <option value="250000">$250,000+</option>
+        </select>
 
-        <label>Household income ($ per year):</label>
-        <input type="number" id="income" value="70000" min="0">
-
-	<br>
-
-        <label>Carbon fee ($ per ton CO₂):</label>
+        <label>Carbon fee ($/ton CO₂):</label>
         <select id="fee">
           <option value="50">$50</option>
           <option value="100" selected>$100</option>
@@ -171,24 +169,9 @@ button:hover {
         <button onclick="calculate()">Estimate</button>
 
         <div class="result" id="result"></div>
+
       </div>
 
-      <p style="margin-top:10px; font-size:0.9em; color:#555;">
-        *Simplified estimate based on typical U.S. consumption patterns.
-      </p>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <div class="flex">
-    <img src="images/carbon_dividend_image_3.png">
-    <div class="text">
-      <h2>Why now</h2>
-      <p>
-        Climate-related costs are rising, and businesses need predictable signals.
-        A carbon fee provides a clear, consistent incentive to reduce emissions.
-      </p>
     </div>
   </div>
 </div>
@@ -201,27 +184,15 @@ function calculate() {
   const income = parseFloat(document.getElementById("income").value);
   const fee = parseFloat(document.getElementById("fee").value);
 
-  if (isNaN(people) || people <= 0 || isNaN(income) || income < 0) {
-    document.getElementById("result").innerHTML = "Please enter valid values.";
-    return;
-  }
-
-  // --- BASELINE (at $100/ton) ---
-  const baselineDividendAnnualPerPerson = 800;
-  const baselineCostAnnualPerPerson = 600;
+  const baselineDividend = 800;
+  const baselineCost = 600;
   const baselineIncome = 70000;
 
-  // Scale with carbon fee
   const feeScale = fee / 100;
-
-  // Dividend
-  const annualDividendPerPerson = baselineDividendAnnualPerPerson * feeScale;
-  const monthlyDividend = (annualDividendPerPerson / 12) * people;
-
-  // Cost scales with income (sublinear)
   const incomeFactor = Math.pow(income / baselineIncome, 0.6);
-  const annualCostPerPerson = baselineCostAnnualPerPerson * incomeFactor * feeScale;
-  const monthlyCost = (annualCostPerPerson / 12) * people;
+
+  const monthlyDividend = (baselineDividend * feeScale / 12) * people;
+  const monthlyCost = (baselineCost * incomeFactor * feeScale / 12) * people;
 
   const net = monthlyDividend - monthlyCost;
 
